@@ -3,19 +3,35 @@ import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { toast } from "react-toastify";
 
+import { useAppState } from "../../providers/appProvider";
+
 import api from "../../services/api";
 
 const Home = () => {
   const [isPause, setIsPause] = useState(false);
+  const { baseUrl, scanEndPoint, token } = useAppState();
 
   const onScan = async (result) => {
     const [readerValue] = result;
     const value = readerValue.rawValue;
 
-    try {
-      api.defaults.headers.common["Authorization"] = "123123";
+    if (!baseUrl) {
+      toast.error("Base URL Belum terisi");
 
-      const { data } = await api.post("/scan-qr", {
+      return;
+    }
+
+    if (!scanEndPoint) {
+      toast.error("End Point Belum terisi");
+
+      return;
+    }
+
+    try {
+      const apiService = api(baseUrl);
+      apiService.defaults.headers.common["Authorization"] = token;
+
+      const { data } = await apiService.post(scanEndPoint, {
         token: value,
       });
 
