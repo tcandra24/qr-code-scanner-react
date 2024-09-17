@@ -1,39 +1,31 @@
 import DefaultLayout from "../../layouts/Default";
 import { useEffect, useReducer } from "react";
+import { useParams } from "react-router-dom";
 import { dataReducer, INITIAL_STATE } from "../../reducers/dataReducer";
 import { useAppState } from "../../providers/appProvider";
 import { toast } from "react-toastify";
 
 import api from "../../services/api";
 
-const Data = () => {
+const Show = () => {
   const [stateData, dispatchData] = useReducer(dataReducer, INITIAL_STATE);
-  const { baseUrl, dataEndPoint, token } = useAppState();
+  const { baseUrl, groupDetailEndPoint, token } = useAppState();
+
+  const { slug } = useParams();
 
   const getData = async () => {
-    if (!baseUrl) {
-      toast.error("Base URL Belum terisi");
-
-      return;
-    }
-
-    if (!dataEndPoint) {
-      toast.error("End Point Belum terisi");
-
-      return;
-    }
     try {
       const apiService = api(baseUrl);
       apiService.defaults.headers.common["Authorization"] = token;
 
-      const { data } = await apiService.get(dataEndPoint);
+      const { data } = await apiService.get(`${groupDetailEndPoint}/${slug}`);
 
       if (!data.success) {
         throw new Error(data.message);
       }
 
       dispatchData({
-        type: "GET_DATA",
+        type: "GET_GROUP_DETAIL",
         payload: data.data,
       });
     } catch (error) {
@@ -49,16 +41,17 @@ const Data = () => {
     <>
       <DefaultLayout>
         <>
-          {stateData &&
-            stateData.data.map((data) => (
-              <div className="max-w-5xl lg:mx-auto mx-5 mt-8" key={data.id}>
-                <h2 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-700 md:text-5xl lg:text-6xl">
-                  {data.name}
-                </h2>
-                <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl">
-                  {data.description}
-                </p>
-                {data.registration.map((registration) => (
+          {stateData.group && (
+            <div className="max-w-5xl lg:mx-auto mx-5 mt-8">
+              <h2 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-700 md:text-5xl lg:text-6xl">
+                {stateData.group.name}
+              </h2>
+              <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl">
+                {stateData.group.description}
+              </p>
+
+              {stateData.group.registration &&
+                stateData.group.registration.map((registration) => (
                   <div
                     className="w-full rounded overflow-hidden shadow-lg my-4"
                     key={registration.id}
@@ -90,12 +83,12 @@ const Data = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-            ))}
+            </div>
+          )}
         </>
       </DefaultLayout>
     </>
   );
 };
 
-export default Data;
+export default Show;

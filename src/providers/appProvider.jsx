@@ -2,8 +2,9 @@ import { createContext, useReducer, useContext, useEffect } from "react";
 
 const INITIAL_STATE = {
   baseUrl: "",
-  dataEndPoint: "",
   scanEndPoint: "",
+  groupEndPoint: "",
+  groupDetailEndPoint: "",
   token: "",
 };
 
@@ -21,15 +22,20 @@ const appReducer = (state, action) => {
         ...state,
         baseUrl: action.payload,
       };
-    case "SET_DATA_END_POINT":
-      return {
-        ...state,
-        dataEndPoint: action.payload,
-      };
     case "SET_SCAN_END_POINT":
       return {
         ...state,
         scanEndPoint: action.payload,
+      };
+    case "SET_GROUP_END_POINT":
+      return {
+        ...state,
+        groupEndPoint: action.payload,
+      };
+    case "SET_GROUP_DETAIL_END_POINT":
+      return {
+        ...state,
+        groupDetailEndPoint: action.payload,
       };
     case "SET_TOKEN":
       return {

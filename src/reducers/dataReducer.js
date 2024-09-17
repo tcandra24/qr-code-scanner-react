@@ -1,13 +1,19 @@
 export const INITIAL_STATE = {
-  data: [],
+  groups: [],
+  group: {},
 };
 
 export const dataReducer = (state, action) => {
   switch (action.type) {
-    case "GET_DATA":
+    case "GET_GROUP":
       return {
         ...state,
-        data: action.payload,
+        groups: action.payload,
+      };
+    case "GET_GROUP_DETAIL":
+      return {
+        ...state,
+        group: action.payload,
       };
     default:
       return state;
