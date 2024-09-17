@@ -20,7 +20,7 @@ export default defineConfig({
             type: "image/svg+xml",
           },
         ],
-        theme_color: "#171717",
+        theme_color: "#6365f1",
         background_color: "#E8EBF2",
         display: "standalone",
         scope: "/",
