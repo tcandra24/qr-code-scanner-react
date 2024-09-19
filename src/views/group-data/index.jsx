@@ -1,23 +1,26 @@
 import DefaultLayout from "../../layouts/Default";
 import { useEffect, useReducer } from "react";
-import { Link } from "react-router-dom";
 import { dataReducer, INITIAL_STATE } from "../../reducers/dataReducer";
 import { useAppState } from "../../providers/appProvider";
 import { toast } from "react-toastify";
+
+// components
+import CardImage from "../../components/card-image";
 
 import api from "../../services/api";
 
 const Index = () => {
   const [stateData, dispatchData] = useReducer(dataReducer, INITIAL_STATE);
-  const { baseUrl, groupEndPoint, groupDetailEndPoint, token } = useAppState();
+  const { base_url, group_end_point, group_detail_end_point, token } =
+    useAppState();
 
   const getData = async () => {
-    if (baseUrl && groupEndPoint && groupDetailEndPoint) {
+    if (base_url && group_end_point && group_detail_end_point) {
       try {
-        const apiService = api(baseUrl);
+        const apiService = api(base_url);
         apiService.defaults.headers.common["Authorization"] = token;
 
-        const { data } = await apiService.get(groupEndPoint);
+        const { data } = await apiService.get(group_end_point);
 
         if (!data.success) {
           throw new Error(data.message);
@@ -43,11 +46,11 @@ const Index = () => {
         {stateData.groups && stateData.groups.length === 0 && (
           <div className="lg:w-1/4 w-full">
             <div
-              class="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50"
+              className="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50"
               role="alert"
             >
               <svg
-                class="flex-shrink-0 inline w-4 h-4 me-3"
+                className="flex-shrink-0 inline w-4 h-4 me-3"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -55,9 +58,9 @@ const Index = () => {
               >
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
               </svg>
-              <span class="sr-only">Info</span>
+              <span className="sr-only">Info</span>
               <div>
-                <span class="font-medium">Info!</span> Group is Empty
+                <span className="font-medium">Info!</span> Group is Empty
               </div>
             </div>
           </div>
@@ -65,19 +68,8 @@ const Index = () => {
 
         {stateData.groups &&
           stateData.groups.length > 0 &&
-          stateData.groups.map((group) => (
-            <div
-              className="lg:w-1/4 w-full rounded overflow-hidden shadow-lg"
-              key={group.id}
-            >
-              <Link to={`/group/${group.slug}`} className="w-full">
-                <img className="w-full" src={group.image} alt={group.slug} />
-              </Link>
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{group.name}</div>
-                <p className="text-gray-700 text-base">{group.description}</p>
-              </div>
-            </div>
+          stateData.groups.map((group, index) => (
+            <CardImage key={index} group={group} />
           ))}
       </div>
     </DefaultLayout>

@@ -9,16 +9,18 @@ import api from "../../services/api";
 
 const Show = () => {
   const [stateData, dispatchData] = useReducer(dataReducer, INITIAL_STATE);
-  const { baseUrl, groupDetailEndPoint, token } = useAppState();
+  const { base_url, group_detail_end_point, token } = useAppState();
 
   const { slug } = useParams();
 
   const getData = async () => {
     try {
-      const apiService = api(baseUrl);
+      const apiService = api(base_url);
       apiService.defaults.headers.common["Authorization"] = token;
 
-      const { data } = await apiService.get(`${groupDetailEndPoint}/${slug}`);
+      const { data } = await apiService.get(
+        `${group_detail_end_point}/${slug}`
+      );
 
       if (!data.success) {
         throw new Error(data.message);

@@ -13,7 +13,7 @@ const Home = () => {
   const [selectedCamera, setSelectedCamera] = useState("");
   const [resultScan, setResultScan] = useState("");
 
-  const { baseUrl, scanEndPoint, token } = useAppState();
+  const { base_url, scan_end_point, token } = useAppState();
 
   const getDevices = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -40,12 +40,12 @@ const Home = () => {
 
     setResultScan(value);
 
-    if (baseUrl && scanEndPoint) {
+    if (base_url && scan_end_point) {
       try {
-        const apiService = api(baseUrl);
+        const apiService = api(base_url);
         apiService.defaults.headers.common["Authorization"] = token;
 
-        const { data } = await apiService.post(scanEndPoint, {
+        const { data } = await apiService.post(scan_end_point, {
           token: value,
         });
 

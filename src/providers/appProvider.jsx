@@ -1,11 +1,11 @@
 import { createContext, useReducer, useContext, useEffect } from "react";
 
 const INITIAL_STATE = {
-  baseUrl: "",
-  scanEndPoint: "",
-  groupEndPoint: "",
-  groupDetailEndPoint: "",
-  token: "",
+  base_url: null,
+  scan_end_point: null,
+  group_end_point: null,
+  group_detail_end_point: null,
+  token: null,
 };
 
 const STORAGE_NAME = "setting-qr-code";
@@ -20,22 +20,22 @@ const appReducer = (state, action) => {
     case "SET_BASE_URL":
       return {
         ...state,
-        baseUrl: action.payload,
+        base_url: action.payload,
       };
     case "SET_SCAN_END_POINT":
       return {
         ...state,
-        scanEndPoint: action.payload,
+        scan_end_point: action.payload,
       };
     case "SET_GROUP_END_POINT":
       return {
         ...state,
-        groupEndPoint: action.payload,
+        group_end_point: action.payload,
       };
     case "SET_GROUP_DETAIL_END_POINT":
       return {
         ...state,
-        groupDetailEndPoint: action.payload,
+        group_detail_end_point: action.payload,
       };
     case "SET_TOKEN":
       return {
