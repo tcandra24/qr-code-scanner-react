@@ -22,15 +22,12 @@ const Home = () => {
     );
     setCameras(videoDevices);
 
-    if (videoDevices.length > 0) {
-      setSelectedCamera(videoDevices[0].deviceId);
-    }
+    // if (videoDevices.length > 0) {
+    //   setSelectedCamera(videoDevices[0].deviceId);
+    // }
   };
 
-  const handleCameraChange = (event) => {
-    if (cameras.length === 0) {
-      return;
-    }
+  const handleCameraChange = async (event) => {
     setSelectedCamera(event.target.value);
   };
 
@@ -86,8 +83,8 @@ const Home = () => {
                     value={selectedCamera}
                   >
                     <option value={""}>Choose a camera</option>
-                    {cameras.map((camera) => (
-                      <option key={camera.deviceId} value={camera.deviceId}>
+                    {cameras.map((camera, index) => (
+                      <option key={index} value={camera.deviceId}>
                         {camera.label}
                       </option>
                     ))}
@@ -108,6 +105,7 @@ const Home = () => {
             <div className="relative border-8 overflow-hidden border-gray-600 bg-gray-60 rounded-3xl flex flex-col w-96 h-96 justify-center items-center bg-no-repeat bg-cover shadow-2xl">
               {selectedCamera && (
                 <Scanner
+                  key={selectedCamera}
                   paused={isPause}
                   scanDelay={2000}
                   className="absolute top-0 left-0 bg-black opacity-60 w-full h-full"

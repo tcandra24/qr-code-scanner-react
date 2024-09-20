@@ -6,6 +6,8 @@ import { useAppState } from "../../providers/appProvider";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validationSettingSchema } from "../../utils/validation";
 
+import SettingDisplay from "../../components/setting-display";
+
 import useSettings from "../../hooks/useSettings";
 import { dispatchAction } from "../../utils/dispatchActions";
 
@@ -76,38 +78,23 @@ const Setting = () => {
         <div className="max-w-lg rounded mx-auto overflow-hidden mb-5">
           <div className="w-full max-w-lg">
             <div className="flex flex-wrap">
-              <div className="w-full px-3 mb-6 md:mb-0 p-3">
-                <h3 className="uppercase tracking-wide text-gray-700 text-lg font-bold">
-                  Base URL
-                </h3>
-                <p className="text-base">{base_url_state ?? "-"}</p>
-              </div>
-              <div className="w-full px-3 mb-6 md:mb-0 p-3">
-                <h3 className="uppercase tracking-wide text-gray-700 text-lg font-bold">
-                  Token
-                </h3>
-                <p className="break-all">{token_state ?? "-"}</p>
-              </div>
-              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0 p-3">
-                <h3 className="uppercase tracking-wide text-gray-700 text-lg font-bold">
-                  Scan End Point
-                </h3>
-                <p className="text-base">{scan_end_point_state ?? "-"}</p>
-              </div>
-              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0 p-3">
-                <h3 className="uppercase tracking-wide text-gray-700 text-lg font-bold">
-                  Group End Point
-                </h3>
-                <p className="text-base">{group_end_point_state ?? "-"}</p>
-              </div>
-              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0 p-3">
-                <h3 className="uppercase tracking-wide text-gray-700 text-lg font-bold">
-                  Group Detail End Point
-                </h3>
-                <p className="text-base">
-                  {group_detail_end_point_state ?? "-"}
-                </p>
-              </div>
+              <SettingDisplay title="Base URL" value={base_url_state} />
+              <SettingDisplay title="Token" value={token_state} />
+              <SettingDisplay
+                title="Scan End Point"
+                value={scan_end_point_state}
+                classCustom="md:w-1/2"
+              />
+              <SettingDisplay
+                title="Group End Point"
+                value={group_end_point_state}
+                classCustom="md:w-1/2"
+              />
+              <SettingDisplay
+                title="Group Detail End Point"
+                value={group_detail_end_point_state}
+                classCustom="md:w-1/2"
+              />
             </div>
           </div>
         </div>
