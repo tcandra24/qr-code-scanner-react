@@ -1,5 +1,5 @@
 import DefaultLayout from "../../layouts/Default";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
 import { dataReducer, INITIAL_STATE } from "../../reducers/dataReducer";
 import { useAppState } from "../../providers/appProvider";
@@ -9,6 +9,7 @@ import api from "../../services/api";
 
 const Show = () => {
   const [stateData, dispatchData] = useReducer(dataReducer, INITIAL_STATE);
+  // const [search, onSearch] = useState("");
   const { base_url, group_detail_end_point, token } = useAppState();
 
   const { slug } = useParams();
@@ -52,7 +53,7 @@ const Show = () => {
                 {stateData.group.description}
               </p>
 
-              <form className="w-full mx-auto">
+              {/* <form className="w-full my-3 mx-auto">
                 <label
                   htmlFor="default-search"
                   className="mb-2 text-sm font-medium text-gray-500 sr-only "
@@ -82,6 +83,7 @@ const Show = () => {
                     id="default-search"
                     className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                     placeholder="Search Name.."
+                    onChange={(e) => onSearch(e.value.target)}
                     required
                   />
                   <button
@@ -91,7 +93,7 @@ const Show = () => {
                     Search
                   </button>
                 </div>
-              </form>
+              </form> */}
 
               {stateData.group.registration &&
                 stateData.group.registration.map((registration) => (
