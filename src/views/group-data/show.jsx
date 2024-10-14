@@ -112,6 +112,13 @@ const Show = () => {
                           <p className="text-gray-500 text-base font-medium">
                             {registration.fullname}
                           </p>
+                          <p className="my-3">
+                            {registration.seats.map((seat) => (
+                              <span className="bg-green-100 text-green-800 text-lg font-medium me-2 px-2.5 py-0.5 rounded">
+                                {seat.name}
+                              </span>
+                            ))}
+                          </p>
                         </div>
                         <div className="my-2 md:mb-0">
                           <span

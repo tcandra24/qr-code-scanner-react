@@ -1,9 +1,12 @@
 import DefaultLayout from "../../layouts/Default";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { toast } from "react-toastify";
 
 import { useAppState } from "../../providers/appProvider";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import api from "../../services/api";
 
@@ -12,6 +15,8 @@ const Home = () => {
   const [resultScan, setResultScan] = useState("");
 
   const { base_url, scan_end_point, token } = useAppState();
+
+  const MySwal = withReactContent(Swal);
 
   const onScan = async (result) => {
     const [readerValue] = result;
@@ -32,7 +37,27 @@ const Home = () => {
           throw new Error(data.message);
         }
 
-        toast.success(data.message);
+        // toast.success(data.message);
+        const badgeHtml = data.data.seats
+          .map(
+            (tag) =>
+              `<span class="bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded">
+              ${tag.name}
+            </span>`
+          )
+          .join(" ");
+
+        MySwal.fire({
+          title: data.message,
+          html: `
+            <p class="text-gray-700">${data.data.registration_number}</p>
+            <div class="flex justify-center my-3">
+              ${badgeHtml}
+            </div>
+          `,
+          showConfirmButton: true,
+          confirmButtonText: "Ok",
+        });
       } catch (error) {
         toast.error(error.response.data.message);
       }
