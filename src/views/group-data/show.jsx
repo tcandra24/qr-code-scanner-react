@@ -1,5 +1,5 @@
 import DefaultLayout from "../../layouts/Default";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import { dataReducer, INITIAL_STATE } from "../../reducers/dataReducer";
 import { useAppState } from "../../providers/appProvider";
@@ -114,7 +114,10 @@ const Show = () => {
                           </p>
                           <p className="my-3">
                             {registration.seats.map((seat) => (
-                              <span className="bg-green-100 text-green-800 text-lg font-medium me-2 px-2.5 py-0.5 rounded">
+                              <span
+                                key={seat.name}
+                                className="bg-green-100 text-green-800 text-lg font-medium me-2 px-2.5 py-0.5 rounded"
+                              >
                                 {seat.name}
                               </span>
                             ))}

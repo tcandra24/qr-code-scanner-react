@@ -8,16 +8,16 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "prompt",
-      includeAssets: ["vite.svg"],
+      includeAssets: ["favicon.ico"],
       manifest: {
         name: "Qr Code Scanner",
         short_name: "QR Scanner",
         description: "An App To Scan QR Code For General Purpose",
         icons: [
           {
-            src: "vite.svg",
+            src: "favicon.ico",
             sizes: "192x192",
-            type: "image/svg+xml",
+            type: "image/x-icon",
           },
         ],
         theme_color: "#6365f1",

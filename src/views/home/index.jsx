@@ -99,7 +99,7 @@ const Home = () => {
           {isUrl(resultScan) ? (
             <div className="relative flex my-3">
               <a href={resultScan} target="_blank">
-                <span class="bg-blue-100 text-blue-800 text-xl font-medium me-2 px-2.5 py-0.5 rounded ">
+                <span className="bg-blue-100 text-blue-800 text-xl font-medium me-2 px-2.5 py-0.5 rounded ">
                   {resultScan}
                 </span>
               </a>

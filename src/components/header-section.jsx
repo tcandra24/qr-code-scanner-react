@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import imgLogo from "../assets/logo.png";
+
 const HeaderSection = () => {
   const [isNavOpen, setNavOpen] = useState(false);
 
@@ -11,9 +13,7 @@ const HeaderSection = () => {
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            QrCode Scanner
-          </span>
+          <img className="self-center w-48" src={imgLogo} alt="Logo" />
         </Link>
         <button
           onClick={() => setNavOpen(!isNavOpen)}
