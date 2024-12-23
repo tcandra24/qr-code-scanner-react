@@ -2,6 +2,7 @@ import DefaultLayout from "../../layouts/Default";
 import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { toast } from "react-toastify";
+import useClipboard from "../../hooks/useClipboard";
 
 import { useAppState } from "../../providers/appProvider";
 
@@ -15,6 +16,7 @@ const Home = () => {
   const [resultScan, setResultScan] = useState("");
 
   const { base_url, scan_end_point, token } = useAppState();
+  const { isCopied, copyToClipboard } = useClipboard();
 
   const MySwal = withReactContent(Swal);
 
@@ -71,6 +73,10 @@ const Home = () => {
     return urlRegex.test(value);
   };
 
+  const copyRawValue = () => {
+    copyToClipboard(resultScan);
+  };
+
   return (
     <>
       <DefaultLayout>
@@ -107,7 +113,7 @@ const Home = () => {
           ) : (
             ""
           )}
-          <div className="relative flex my-3">
+          <div className="relative flex flex-col my-3">
             <textarea
               className="w-96 border-2 rounded border-gray-300"
               cols="30"
@@ -115,6 +121,14 @@ const Home = () => {
               value={resultScan}
               disabled={true}
             ></textarea>
+            <div className="flex justify-center">
+              <button
+                onClick={copyRawValue}
+                className="bg-gray-500 hover:bg-gray-700 my-3 text-white font-bold py-2 px-4 rounded"
+              >
+                {isCopied ? "Copied" : "Copy"}
+              </button>
+            </div>
           </div>
         </div>
       </DefaultLayout>
