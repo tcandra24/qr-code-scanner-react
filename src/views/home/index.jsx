@@ -16,13 +16,14 @@ const Home = () => {
   const [resultScan, setResultScan] = useState("");
 
   const { base_url, scan_end_point, token } = useAppState();
-  const { isCopied, copyToClipboard } = useClipboard();
+  const { isCopied, setIsCopied, copyToClipboard } = useClipboard();
 
   const MySwal = withReactContent(Swal);
 
   const onScan = async (result) => {
     const [readerValue] = result;
     const value = readerValue.rawValue;
+    setIsCopied(false);
 
     setResultScan(value);
 
