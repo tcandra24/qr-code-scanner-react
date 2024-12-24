@@ -14,7 +14,7 @@ const useClipboard = () => {
     }
   };
 
-  return { isCopied, copyToClipboard };
+  return { isCopied, setIsCopied, copyToClipboard };
 };
 
 export default useClipboard;
