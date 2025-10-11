@@ -1,6 +1,6 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app help people to scan qr code and generate qrcode, which they can download it
 
 Currently, two official plugins are available:
 
